@@ -11,10 +11,10 @@ import UIKit
 
 class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-    @IBOutlet weak var pckSortField: UIPickerView!
-    @IBOutlet weak var swAscending: UISwitch!
-    @IBOutlet var settingsView: UIView!
-    
+@IBOutlet weak var pckSortField: UIPickerView! //Need to be hookup up
+@IBOutlet weak var swAscending: UISwitch! //Need to be hooked up
+
+@IBOutlet weak var lblBattery: UILabel! // Need to be hooked up
 let sortOrderItems: Array<String> = ["title","subject","dateCreated"]
 
 
@@ -23,8 +23,39 @@ override func viewDidLoad() {
     
     pckSortField.dataSource = self;
     pckSortField.delegate = self;
+    
+    UIDevice.current.isBatteryMonitoringEnabled = true
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(self.batteryChanged),
+                                           name: UIDevice.batteryStateDidChangeNotification,
+                                           object: nil)
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(self.batteryChanged),
+                                           name: UIDevice.batteryLevelDidChangeNotification,
+                                           object: nil)
+    self.batteryChanged()
 }
 
+@objc func batteryChanged(){
+    let device = UIDevice.current
+    var batteryState: String
+    switch(device.batteryState) {
+    case .charging:
+        batteryState = "+"
+    case .full:
+        batteryState = "!"
+    case .unplugged:
+        batteryState = "-"
+    case .unknown:
+        batteryState = "?"
+    @unknown default:
+        batteryState = "?"
+    }
+    let batteryLevelPercent = device.batteryLevel * 100
+    let batteryLevel = String(format: "%.0f%%", batteryLevelPercent)
+    let batteryStatus = "\(batteryLevel) (\(batteryState))"
+    lblBattery.text = batteryStatus
+}
 
 override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -35,8 +66,10 @@ override func didReceiveMemoryWarning() {
     let settings = UserDefaults.standard
     settings.set(swAscending.isOn, forKey: Constants.kSortDirectionAscending)
     settings.synchronize()
-    }
     
+}
+
+
 //MARK: UIPickerViewDelegate Methods
 
 //Returns the # of 'columns' to display
@@ -78,7 +111,7 @@ override func viewWillAppear(_ animated: Bool) {
 }
 
 override func viewDidDisappear(_ animated: Bool) {
-    
+    UIDevice.current.isBatteryMonitoringEnabled = false
 }
    
 /*
