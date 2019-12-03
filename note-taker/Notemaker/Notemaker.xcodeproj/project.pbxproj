@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21FC64802395AB13004DE9E5 /* Settings2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FC647F2395AB13004DE9E5 /* Settings2ViewController.swift */; };
 		AC14E569238FAD17000F1EBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14E568238FAD17000F1EBC /* AppDelegate.swift */; };
 		AC14E56B238FAD17000F1EBC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14E56A238FAD17000F1EBC /* SceneDelegate.swift */; };
 		AC14E575238FAD17000F1EBC /* Notemaker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC14E573238FAD17000F1EBC /* Notemaker.xcdatamodeld */; };
@@ -18,7 +19,6 @@
 		AC4E6228238FAFE100B0BAB9 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4E6226238FAFE100B0BAB9 /* NoteViewController.swift */; };
 		AC4E6229238FAFE100B0BAB9 /* NoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4E6227238FAFE100B0BAB9 /* NoteTableViewController.swift */; };
 		AC4E622B238FAFF500B0BAB9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4E622A238FAFF400B0BAB9 /* Constants.swift */; };
-		AC4E622D238FB00300B0BAB9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4E622C238FB00300B0BAB9 /* SettingsViewController.swift */; };
 		AC4E622F238FB2E400B0BAB9 /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4E622E238FB2E400B0BAB9 /* DateViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21FC647F2395AB13004DE9E5 /* Settings2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings2ViewController.swift; sourceTree = "<group>"; };
 		AC14E565238FAD17000F1EBC /* Notemaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notemaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC14E568238FAD17000F1EBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC14E56A238FAD17000F1EBC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,7 +58,6 @@
 		AC4E6226238FAFE100B0BAB9 /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		AC4E6227238FAFE100B0BAB9 /* NoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTableViewController.swift; sourceTree = "<group>"; };
 		AC4E622A238FAFF400B0BAB9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		AC4E622C238FB00300B0BAB9 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		AC4E622E238FB2E400B0BAB9 /* DateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,10 +112,10 @@
 				AC14E568238FAD17000F1EBC /* AppDelegate.swift */,
 				AC14E56A238FAD17000F1EBC /* SceneDelegate.swift */,
 				AC4E622A238FAFF400B0BAB9 /* Constants.swift */,
-				AC4E622C238FB00300B0BAB9 /* SettingsViewController.swift */,
-				AC4E622E238FB2E400B0BAB9 /* DateViewController.swift */,
 				AC4E6226238FAFE100B0BAB9 /* NoteViewController.swift */,
 				AC4E6227238FAFE100B0BAB9 /* NoteTableViewController.swift */,
+				21FC647F2395AB13004DE9E5 /* Settings2ViewController.swift */,
+				AC4E622E238FB2E400B0BAB9 /* DateViewController.swift */,
 				AC14E59D238FAD66000F1EBC /* Main.storyboard */,
 				AC14E576238FAD18000F1EBC /* Assets.xcassets */,
 				AC14E578238FAD18000F1EBC /* LaunchScreen.storyboard */,
@@ -281,7 +281,7 @@
 				AC14E56B238FAD17000F1EBC /* SceneDelegate.swift in Sources */,
 				AC4E6228238FAFE100B0BAB9 /* NoteViewController.swift in Sources */,
 				AC4E622B238FAFF500B0BAB9 /* Constants.swift in Sources */,
-				AC4E622D238FB00300B0BAB9 /* SettingsViewController.swift in Sources */,
+				21FC64802395AB13004DE9E5 /* Settings2ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,14 +447,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CP9VU4B8DD;
+				DEVELOPMENT_TEAM = HD7X4SSXCZ;
 				INFOPLIST_FILE = Notemaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.company.et.Notemaker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.lma;
+				PRODUCT_NAME = Notemaker;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -465,14 +465,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CP9VU4B8DD;
+				DEVELOPMENT_TEAM = HD7X4SSXCZ;
 				INFOPLIST_FILE = Notemaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.company.et.Notemaker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.lma;
+				PRODUCT_NAME = Notemaker;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

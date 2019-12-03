@@ -9,13 +9,10 @@
 import CoreData
 import UIKit
 
-class ContactsTableViewController: UITableViewController {
+class NoteTableViewController: UITableViewController {
     
        var notes:[NSManagedObject] = []
        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-      
-    
-    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     
 
@@ -23,36 +20,19 @@ class ContactsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-        
-   
     }
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-              // Pass the selected object to the new view controller.
-                      if segue.identifier == "EditNote" {
-                        let contactController = segue.destination as? NoteViewController
-                          let selectedRow = self.tableView.indexPath(for: sender as! UITableViewCell)?.row
-                          let selectedContact = notes[selectedRow!] as? Note
-                          contactController?.currentContact = selectedContact!
-                      }
-                    }
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     
     override func viewWillAppear(_ animated: Bool) {
-          loadDataFromDatabase()
-          tableView.reloadData()
-      }
+             loadDataFromDatabase()
+             tableView.reloadData()
+         }
+    
     override func didReceiveMemoryWarning() {
            super.didReceiveMemoryWarning()
            // Dispose of any resources that can be recreated.
        }
     
-        func loadDataFromDatabase() {
+    func loadDataFromDatabase() {
         //Read settings to enable sorting
         let settings = UserDefaults.standard
         let sortField = settings.string(forKey: Constants.kSortField)
@@ -60,21 +40,23 @@ class ContactsTableViewController: UITableViewController {
         //Set up Core Data Context
         let context = appDelegate.persistentContainer.viewContext
         //Set up Request
-        let request = NSFetchRequest<NSManagedObject>(entityName: "Contact")
+        let request = NSFetchRequest<NSManagedObject>(entityName: "Note")
         //Specify sorting
         let sortDescriptor = NSSortDescriptor(key: sortField, ascending: sortAscending)
         let sortDescriptorArray = [sortDescriptor]
         //to sort by multiple fields, add more sort descriptors to the array
-                request.sortDescriptors = sortDescriptorArray
+        request.sortDescriptors = sortDescriptorArray
+        
         //Execute request
-                do {
-                    notes = try context.fetch(request)
-                } catch let error as NSError {
-        print("Could not fetch. \(error), \(error.userInfo)")
-                }
-            }
-
-    // MARK: - Table view data source
+        do {
+            notes = try context.fetch(request)
+            
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+            
+        }
+        
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -86,25 +68,25 @@ class ContactsTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NotesCell", for: indexPath)
 
         // Configure the cell...
-        let contact = notes[indexPath.row] as? Note
-        cell.textLabel?.text = contact?.contactName
-        cell.detailTextLabel?.text = contact?.city
+        let note = notes[indexPath.row] as? Note
+        cell.textLabel?.text = note?.title
+        cell.detailTextLabel?.text = note?.subject
         cell.accessoryType = .detailDisclosureButton
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedContact = notes[indexPath.row] as? Note
-        let name = selectedContact!.contactName!
+        let selectedNote = notes[indexPath.row] as? Note
+        let name = selectedNote!.title!
         let actionHandler = { (action:UIAlertAction!) -> Void in
-            //            self.performSegue(withIdentifier: "EditContact", sender: tableView.cellForRow(at: indexPath))
+            self.performSegue(withIdentifier: "EditNote", sender: tableView.cellForRow(at: indexPath))
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: "NoteController")
                 as? NoteViewController
-            controller?.currentContact = selectedContact
+            controller?.currentNote = selectedNote
             self.navigationController?.pushViewController(controller!, animated: true)
         }
         
@@ -142,46 +124,17 @@ class ContactsTableViewController: UITableViewController {
           }
       }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "EditNote" {
+        let noteController = segue.destination as? NoteViewController
+        let selectedRow = self.tableView.indexPath(for: sender as! UITableViewCell)?.row
+        let selectedNote = notes[selectedRow!] as? Note
+        noteController?.currentNote = selectedNote!
+            
         }
+        
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    
-    // MARK: - Navigation
-
-
-
 }
 

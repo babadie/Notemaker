@@ -8,31 +8,35 @@
 
 import UIKit
 import CoreData
+import CoreMotion
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    lazy var motionManager = CMMotionManager()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-      /*
-         
-         let settings = UserDefaults.standard
+               // Override point for customization after application launch.
+        let settings = UserDefaults.standard
         
-        if(settings.string(forKey: Constants.kSortField) == nil) {
+        //The bulk of the method is two if statements that check whether a value is already stored with two specific keys in the settings object. The first one (line 22) checks if the sortField has been set. If not, it stores City as the value in sortField in line 23. This approach ensures there is a value in the field, but also avoids overwriting any existing value.
+        
+        if settings.string(forKey: Constants.kSortField) == nil {
             settings.set("title", forKey: Constants.kSortField)
         }
-        if(settings.string(forKey: Constants.kSortDirectionAscending) == nil) {
+        
+        //The second if statement in lines 27-29 repeats the same check for the sort direction. If no value is stored, it defaults to true.
+        if settings.string(forKey: Constants.kSortDirectionAscending) == nil {
             settings.set(true, forKey: Constants.kSortDirectionAscending)
         }
-       
+        
+        //Line 32 ensures that any changes are saved back to the settings file, and lines 33 and 34 write the values of the two settings fields to NSLog. This shows how to retrieve a Boolean value using the bool(:ForKey:) method and retrieve a string by using string(:ForKey:).
         settings.synchronize()
         NSLog("Sort field: %@", settings.string(forKey: Constants.kSortField)!)
-            NSLog("Sort direction: \(settings.bool(forKey: Constants.kSortDirectionAscending))")
-         
-         */
-            
-           return true
+        NSLog("Sort direction: \(settings.bool(forKey: Constants.kSortDirectionAscending))")
+        return true
     }
     
 

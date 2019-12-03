@@ -8,71 +8,39 @@
 
 import UIKit
 
-
 class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-@IBOutlet weak var pckSortField: UIPickerView! //Need to be hookup up
-@IBOutlet weak var swAscending: UISwitch! //Need to be hooked up
-
-@IBOutlet weak var lblBattery: UILabel! // Need to be hooked up
-let sortOrderItems: Array<String> = ["title","subject","dateCreated"]
+    
+    @IBOutlet weak var pckSortField: UIPickerView!
+    @IBOutlet weak var swAscendingNew: UISwitch!
+    @IBOutlet var settingsView: UIView!
+    
+    
+    let sortOrderItems: Array<String> = ["title","subject","dateCreated"]
 
 
 override func viewDidLoad() {
     super.viewDidLoad()
-    
-    pckSortField.dataSource = self;
-    pckSortField.delegate = self;
-    
-    UIDevice.current.isBatteryMonitoringEnabled = true
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(self.batteryChanged),
-                                           name: UIDevice.batteryStateDidChangeNotification,
-                                           object: nil)
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(self.batteryChanged),
-                                           name: UIDevice.batteryLevelDidChangeNotification,
-                                           object: nil)
-    self.batteryChanged()
+    //pckSortField.dataSource = self;
+    //pckSortField.delegate = self;
 }
 
-@objc func batteryChanged(){
-    let device = UIDevice.current
-    var batteryState: String
-    switch(device.batteryState) {
-    case .charging:
-        batteryState = "+"
-    case .full:
-        batteryState = "!"
-    case .unplugged:
-        batteryState = "-"
-    case .unknown:
-        batteryState = "?"
-    @unknown default:
-        batteryState = "?"
-    }
-    let batteryLevelPercent = device.batteryLevel * 100
-    let batteryLevel = String(format: "%.0f%%", batteryLevelPercent)
-    let batteryStatus = "\(batteryLevel) (\(batteryState))"
-    lblBattery.text = batteryStatus
-}
 
 override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     //Dispose of any resources that can be recreated
 }
 
-@IBAction func sortDirectionChanged(_ sender: Any) {
-    let settings = UserDefaults.standard
-    settings.set(swAscending.isOn, forKey: Constants.kSortDirectionAscending)
-    settings.synchronize()
     
-}
-
-
 //MARK: UIPickerViewDelegate Methods
 
-//Returns the # of 'columns' to display
+    @IBAction func sortDirectionChangedNew(_ sender: Any) {
+        let settings = UserDefaults.standard
+        settings.set(swAscendingNew.isOn, forKey: Constants.kSortDirectionAscending)
+        settings.synchronize()
+
+    }
+    //Returns the # of 'columns' to display
 func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return 1
 }
@@ -96,22 +64,23 @@ func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent c
 override func viewWillAppear(_ animated: Bool) {
     //Set the UI using the values store in User_Defaults
     let settings = UserDefaults.standard
-    swAscending.setOn(settings.bool(forKey: Constants.kSortDirectionAscending),animated: true)
-    
+    swAscendingNew.setOn(settings.bool(forKey: Constants.kSortDirectionAscending),animated: true)
     let sortField = settings.string(forKey: Constants.kSortField)
     var i = 0
     
     for field in sortOrderItems {
         if field == sortField {
-        pckSortField.selectRow(i, inComponent: 0, animated: false)
+        //pckSortField.selectRow(i, inComponent: 0, animated: false)
     }
         i += 1
 }
-     pckSortField.reloadComponent(0)
+     //pckSortField.reloadComponent(0)
 }
 
 override func viewDidDisappear(_ animated: Bool) {
-    UIDevice.current.isBatteryMonitoringEnabled = false
+    //let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    //appDelegate?.motionManager.stopAccelerometerUpdates()
+    
 }
    
 /*
